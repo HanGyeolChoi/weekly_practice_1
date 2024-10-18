@@ -17,7 +17,7 @@ public class AchievementManager : MonoBehaviour
 
     private void Start()
     {
-        //achievementView.CreateAchievementSlots(achievements);  // UI 생성
+        achievementView.CreateAchievementSlots(achievements);  // UI 생성
         currentThresholdIndex = 0;
         RocketMovementC.OnHighScoreChanged += CheckAchievement;
     }
@@ -29,10 +29,13 @@ public class AchievementManager : MonoBehaviour
         //{
         //    if ((!SO.isUnlocked) && height > SO.threshold) SO.isUnlocked = true;
         //}
-        if(height >= achievements[currentThresholdIndex].threshold)
+
+        if (currentThresholdIndex == achievements.Length) return;
+        if (height >= achievements[currentThresholdIndex].threshold)
         {
-            achievements[currentThresholdIndex].isUnlocked = true;
-            if (currentThresholdIndex == achievements.Length - 1) return;
+            
+            //achievements[currentThresholdIndex].isUnlocked = true;
+            achievementView.UnlockAchievement((int)height);
             currentThresholdIndex++;
         }
     }
